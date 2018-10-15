@@ -23,7 +23,10 @@ ChStr2py <- function(Chin.strs = "", method = c("toneless", "tone"), multi = TRU
 
     # convert a single character to pinyin
     ChChar2Py <- function(Chin.char){
-      ChCharpy <- pylib[[Chin.char]]
+      pylib_ <- as.list(pylib)
+      names(pylib_) <- iconv(names(pylib_), from = 'GBK', to = 'UTF-8')
+      pylib2 = list2env(pylib_)
+      ChCharpy <- pylib2[[Chin.char]]
 
       if(length(ChCharpy)==0){
         ChCharpy <- Chin.char
