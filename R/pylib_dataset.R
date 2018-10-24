@@ -16,4 +16,4 @@
 #' @examples
 #' data(pylib)
 #'
-"pylib"
+"pylib2"
