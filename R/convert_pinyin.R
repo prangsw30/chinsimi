@@ -18,14 +18,14 @@ ChStr2py <- function(Chin.strs = "", method = c("toneless", "tone"), multi = TRU
   # Convert a string to pinyin
   ChStr2py <- function(Chin.str, pylib){
     Sys.setlocale(category = 'LC_ALL', locale = "zh_cn.UTF-8")
+    pylib_ <- as.list(pylib)
+    names(pylib_) <- iconv(names(pylib_), from = 'GBK', to = 'UTF-8')
+    pylib2 = list2env(pylib_)
     if(is.na(Chin.str)) return(NA)
     Chin.char <- unlist(strsplit(Chin.str, split = "")) # divide the string to characters
 
     # convert a single character to pinyin
     ChChar2Py <- function(Chin.char){
-      pylib_ <- as.list(pylib)
-      names(pylib_) <- iconv(names(pylib_), from = 'GBK', to = 'UTF-8')
-      pylib2 = list2env(pylib_)
       ChCharpy <- pylib2[[Chin.char]]
 
       if(length(ChCharpy)==0){
