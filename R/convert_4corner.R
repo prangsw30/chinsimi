@@ -12,10 +12,7 @@
 ChStr2fc <- function(Chin.strs = "", sep = "_", parallel = FALSE)
 {
   # Convert one string to four corner code
-  ChStr2fc <- function(Chin.str, FClib){
-    FClib_ <- as.list(FClib)
-    names(FClib_) <- iconv(names(FClib_), from = 'GBK', to = 'UTF-8')
-    FClib2 = list2env(FClib_)
+  ChStr2fc <- function(Chin.str, FClib2){
     Sys.setlocale(category = 'LC_ALL', locale = 'zh_cn.UTF-8')
     if(is.na(Chin.str)) return(NA)
     Chin.char <- unlist(strsplit(Chin.str, split = "")) # divide the string to characters
@@ -37,10 +34,10 @@ ChStr2fc <- function(Chin.strs = "", sep = "_", parallel = FALSE)
   {
     no_cores <- parallel::detectCores() - 1  # Get the number of available string
     cl <- parallel::makeCluster(no_cores)   # Initiate cluster
-    fccode <- parallel::parSapply(cl, X = Chin.strs, FUN = ChStr2fc, FClib)
+    fccode <- parallel::parSapply(cl, X = Chin.strs, FUN = ChStr2fc, FClib2)
     parallel::stopCluster(cl)
     return(fccode)
   } else {
-    sapply(Chin.strs, ChStr2fc, FClib)
+    sapply(Chin.strs, ChStr2fc, FClib2)
   }
 }
