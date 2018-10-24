@@ -47,11 +47,11 @@ ChStr2py <- function(Chin.strs = "", method = c("toneless", "tone"), multi = TRU
   {
     no_cores <- parallel::detectCores() - 1  # Get the number of available string
     cl <- parallel::makeCluster(no_cores)   # Initiate cluster
-    pinyin <- parallel::parSapply(cl, X = Chin.strs, FUN = ChStr2py, pylib)
+    pinyin <- parallel::parSapply(cl, X = Chin.strs, FUN = ChStr2py, pylib2)
     parallel::stopCluster(cl)
     return(pinyin)
   } else {
-    sapply(Chin.strs, ChStr2py, pylib)
+    sapply(Chin.strs, ChStr2py, pylib2)
   }
 
 }
